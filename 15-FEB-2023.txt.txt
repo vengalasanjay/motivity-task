@@ -1,0 +1,280 @@
+
+
+==================================================================================================================================================================================================================================
+1.The script prompts the user to enter the path to the CSV file.
+Validate the file if its not CSV the script should terminateThe script prompts the user to enter an age range (e.g., "18-25") to filter the results.
+If not in given range expression  script should prompt to enter with an example to enter the rangeThe script reads the CSV file and extracts the following information for each user   
+ a. First name          b. Last name          c. Email address          d. Age     
+The script displays the user data for all users whose age falls within the specified range.
+
+ 
+ANS.
+#!/bin/bash
+echo -n 'path: '
+read dirpath
+echo -n 'filename'
+read filename
+
+
+if [[ -f "$filename" ]]
+then
+        cd $dirpath
+       read -p "enter the lower limit of range " LL
+       read -p "enter the lower limit of range " UL
+       s_age=$LL
+
+   while  [ $s_age -lt $UL ]
+
+         do
+
+            cat $filename | grep $s_age
+                 s_age=` expr $s_age + 1 `
+         done
+
+else
+        echo " file not exits "
+fi
+
+OUT PUT :  
+sanjay@UBUNTU:~/Desktop/scripting$ ./sanju.sh 
+
+
+path: /home/sanjay/Desktop/scripting
+filenamedata.txt
+enter the lower limit of range 20
+enter the lower limit of range 25
+21 sharon rudra email.com
+22 sanjay vengala email.com
+22 sanju vengwla email.com
+23 vishnu vardan email.com
+
+===============================================================================================================================================
+  2.Write a shell script that deletes all lines containing a specified word in one or more files supplied as arguments to it?
+ANS :
+f [ $# -eq 0 ]
+then
+	echo no arguments !
+else
+	pattern=$1
+
+	
+echo enter file name :sanjay@UBUNTU:~/Desktop/scripting$ 
+read filename
+if [ -f $filename ]
+then
+	echo DELETING $pattern FROM $name
+	sed '/'$pattern'/d' $filename
+
+else
+	echo $filename 	NOT PRESENT 
+fi
+fi 
+
+OUT PUT :
+sanjay@UBUNTU:~/Desktop/scripting$ bash task5.sh
+enter file name : 
+data.txt
+DELETING YOU FROM DATA.TXT
+
+=====================================================================================================================================================
+
+
+Write a shell script to list all of the directory files in a directory?
+
+ANS :
+
+echo "Enter Directory Name :"
+read dir
+if [ -d $dir ]
+then
+        echo "Listing Directories Present in $dir"
+        ls $dir
+else
+echo "Enter proper directory name"
+fi
+
+OUT PUT :  
+sanjay@UBUNTU:~/Desktop/scripting$./task3.sh 
+
+Enter directory Name : /home/sanjay/Desktop/scripting
+755       days_in_month.sh  dummy.sh       firstscript.sh  installing-apache.sh           practice2.sh  sanju2.sh  task1.sh  task5.sh   UID.SH
+data.txt  debuger.sh        file_test.txt  if-else.sh      monitaring-disk-space-mail.sh  san1.sh       sanju.sh   task2.sh  tasks.txt  user_pass_gen.sh
+
+=================================================================================================================================================================
+
+Write a simple script to install any tomcat server?#!/bin/bash
+
+ANS :
+req_version="10.0.27"
+tomcat_m_version=$(echo $req_version | cut -c l)
+
+url=https://dlcdn.apache.org/tomcat/tomcat-${tomcat_m_version}/v${req_version}/bin/apache-tomcat-${req_version}.tar.gz
+wget $url
+
+tar -xvzf apache-tomcat-${req_version}.tar.gz
+
+mv apache-tomcat-${req_version} apache${tomcat_m_version}
+
+rm -rf apache-tomcat-${req_version}.tar.gz
+
+=====================================================================================================================================================================
+
+write a shell script using arithmetic operators for adding, multiplication and subtraction of any two numbers?
+
+ANS :
+
+!/bin/bash
+echo "Enter 2 values "
+read num1
+read num2
+result=`expr $num1 + $num2 `
+echo "Addition value : $result"
+
+result= `expr $num1 - $num2`
+echo "subtraction value : $result" 
+
+result= `expr $num1 \* $num2 `
+echo "MUltiplecation value : $result"
+
+result=`expr $num1 / $num2 `
+echo "division value : $result"
+
+result=`expr $num1 % $num2 `
+echo "mod value : $result"
+
+OUT PUT : sanjay@UBUNTU:~/Desktop/scripting$ ./calculations.sh
+
+ ENTER TO VALUES 
+23
+1
+Adiition value : 24
+subtraction value : 21
+MULtiplection value : 23
+division value : 23
+mod value : 23
+ 
+==============================================================================================================================================================================
+This example script prompts the user to enter a month and outputs the number of days. There are three possible answers: 30 days, 31 days, 28 or 29 days for February
+
+
+ANS :
+#!/bin/bash 
+
+shopt -s nocasematch
+
+echo "Enter the name of a month." 
+
+read month
+
+case $month in
+
+  February)
+
+
+
+echo "There are 28/29 days in $month.";;
+
+  April | June | September | November)
+
+echo "There are 30 days in $month.";;
+
+  January | March | May | July | August | October | December)
+
+echo "There are 31 days in $month.";;
+
+  *)
+
+echo "Unknown month. Please check if you entered the correct month name: $month";;
+esac
+
+OUTPUT :
+sanjay@UBUNTU:~/Desktop/scripting$ ./month.sh
+Enter the name of month
+April
+There are 30 days in April.
+
+
+=========================================================================================================================================================================
+Script for iterations if-else, for, etc.,?
+
+
+ANS :
+
+#!/bin/bash
+echo " entre the age "
+ read  AGE
+
+if [ $AGE -lt 13 ];
+then
+	echo "You are a kid."
+elif [ $AGE -lt 20 ];
+then
+	echo "You are a teenager."
+elif [ $AGE -lt 65 ];
+then
+	echo "You are an adult."
+else
+	echo "You are an elder."
+fi
+
+OUTPUT :
+ sanjay@UBUNTU:~/Desktop/scripting$ ./if-else.sh
+enter the age 
+21 
+your are an adult 
+===============================================================================================================================================================================
+
+Write a shell script that takes a directory path and an extension as input and creates a backup of all files in the directory that have the specified extension. 
+The script should create a new directory named "backup" in the same directory as the original files and copy all files with the specified extension to the backup directory.
+If the backup directory already exists, the script should prompt the user to confirm whether to overwrite it or not.(Using Functions)
+
+ANS :
+#!/bin/bash
+ read -p "enter the directory to backup the files  : " dirpath
+ read -p "Enter the extension of the file which be backed up  :" ext
+ cd $dirpath
+
+ logic()
+ {
+	 cd $dirpath
+	 mkdir backup
+ cp -v *.$ext ./backup
+
+ }
+
+if [[  ! -d "backup"  ]]
+then 
+      echo " backuping the files ! "backuping the files !
+	logic
+	
+else 
+	echo " There is already backup directory, do you want to override it : YES/NO "
+	read option
+	if [[  $option == "YES"  ]]
+	then
+	rm -r backup
+	logic
+	else
+		echo " Not overriding ! Thankyou !"
+	fi
+fi
+
+OUTPUT :
+sanjay@UBUNTU:~/Desktop/scripting$ ./backup.sh
+enter the directory to backup the files  : home/sanjay/Desktop/scripting
+Enter the extension of the file which be backed up  .sh 
+backuping the files !
+
+===============================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
